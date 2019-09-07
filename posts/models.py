@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import IntegerField
 from django.urls import reverse
 
 from rest_framework.reverse import reverse as api_reverse
@@ -9,10 +10,13 @@ from rest_framework.reverse import reverse as api_reverse
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=120, null=True, blank=True)
-    category = models.TextField(max_length=120, null=True, blank=True)
-    storage_link = models.TextField(max_length=120, null=True, blank=True)
-    counter_id = models.TextField(max_length=120, null=True, blank=True)
+    title = models.CharField(max_length=120)
+    category = models.CharField(max_length=120, null=True)
+    sub_category = models.CharField(max_length=120, null=True, blank=True)
+    storage_link = models.CharField(max_length=1000, null=True)
+    universal_count = models.IntegerField()  # Overall Count of whole posts
+    category_count = models.IntegerField()  # count in a category
+    sub_post_count = models.IntegerField(null=True, blank=True)  # sub posts count (if any)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

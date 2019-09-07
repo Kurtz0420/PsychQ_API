@@ -24,10 +24,10 @@ from posts.api.views import PostRudView
 
 router = routers.DefaultRouter()
 
-router.register(r'posts', PostRudView)
+router.register(r'psychq/posts', PostRudView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/posts/', include('posts.api.urls')),
+    url(r'^api/psychq/posts/', include('posts.api.urls')),
 
 ]

@@ -9,12 +9,13 @@ from posts.api.serializers import PostSerializer
 # ListApiView will list the posts #CreateModelMixin Will provide create
 class PostApiView(generics.ListAPIView,
                   mixins.CreateModelMixin):
-    lookup_field = 'pk'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field  #data will be fetched by entring pk
+    lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field  #data will be fetched by entring pk
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
     def get_queryset(self):
-        # following will enable us to search through all posts with any parameter from model '?q={value_of_field_added_below}'
+        # following will enable us to search through all posts with any parameter from model '?q={
+        # value_of_field_added_below}'
         qs = Post.objects.all()
         query = self.request.GET.get("q")
         if query is not None:
@@ -32,7 +33,7 @@ class PostApiView(generics.ListAPIView,
 
 
 class PostRudView(generics.RetrieveUpdateDestroyAPIView):
-    lookup_field = 'pk'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
+    lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
     #  #data will be fetched by entring pk
     serializer_class = PostSerializer
     queryset = Post.objects.all()

@@ -10,6 +10,6 @@ For PsychQ App Backend
 +
 
  '/admin' - admin panels func : all control
- 'api/posts/ - will list the items in the database as well as ability to post new item
- 'api/posts/{number} - will return the object of the respective id
- 'api/posts/?q={fieldsProvidedIn 'PostApiView.get_query} - searches the title/data inside items
+ 'api/psychq/posts/ - will list the items in the database as well as ability to post new item
+ 'api/psychq/posts/{number} - will return the object of the respective id
+ 'api/psychq/posts/?q={fieldsProvidedIn 'PostApiView.get_query} - searches the title/data inside items

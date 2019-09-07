@@ -8,21 +8,25 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'pk',
+            'id',
             'user',
             'title',
             'category',
+            'sub_category',
             'storage_link',
-            'counter_id',
+            'universal_count',
+            'category_count',
+            'sub_post_count',
             'timestamp',
         ]
-        read_only_fields = ['pk', 'user']
+        read_only_fields = ['id', 'user', 'timestamp']
 
         # For Field Validation
 
-
-
         #  This part is not working properly, come back to it later
+        def __init__(self):
+            self.instance = None
+
         def validate_title(self, value):
             val_title = Post.objects.filter(title__iexact=value)  # will throw error if the title of two posts is same
             if self.instance:
