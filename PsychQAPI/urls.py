@@ -29,5 +29,6 @@ router.register(r'psychq/posts', PostRudView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/psychq/posts/', include('posts.api.urls')),
+    path('api/account/', include('accounts.api.urls', 'account_api'))
 
 ]

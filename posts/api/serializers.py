@@ -8,18 +8,25 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'id',
+            'pk',
             'user',
+            'code',
             'title',
+            'description',
             'category',
             'sub_category',
             'storage_link',
             'universal_count',
             'category_count',
             'sub_post_count',
+            'is_printAvailible',
+            'tags',
+            'views',
+            'downloads',
+
             'timestamp',
         ]
-        read_only_fields = ['id', 'user', 'timestamp']
+        read_only_fields = ['pk', 'user', 'timestamp']
 
         # For Field Validation
 
