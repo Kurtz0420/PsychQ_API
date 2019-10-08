@@ -38,3 +38,19 @@ Query
     -title
     -category
     -universal_count
+
+REQUESTS
+=========
+
++ GET - /api/psychq/posts
+        will retrieve all the objects of posts in psychQ
+
++ POST - /api/psychq/posts/
+        will post object if model is valid
+
++ PUT - /api/psychq/posts/{post id or pk}
+        will replace the object related to that id/pk
+
++ PATCH - /api/psychq/posts/{id/pk}
+        can update individual properties of an object
+        as well as the whole object related t0 that id

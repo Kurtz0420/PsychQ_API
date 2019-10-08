@@ -41,7 +41,11 @@ class PostApiView(
     def patch(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
 
+        print("Fetched pk", pk)
+
         object_to_update = Post.objects.filter(pk=pk).first()
+
+        print("object_to_update", object_to_update)
         # try:
         #     object_to_update = Post.objects.get(pk=pk)
         # except Post.DoesNotExist:
