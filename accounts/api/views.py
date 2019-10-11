@@ -1,4 +1,8 @@
-from rest_framework import status, permissions
+from django.contrib.auth import backends
+from django.contrib.auth.backends import ModelBackend, UserModel
+from django.contrib.auth.views import LoginView
+from django.db.models import Q
+from rest_framework import status, permissions, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
@@ -23,3 +27,14 @@ def registration_view(request):
 
     def get_queryset(self):
         return Account.objects.filter(username=self.kwargs['username'])
+
+
+
+# class AccountRView(generics.RetrieveAPIView):
+#     lookup_field = 'pk'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
+#     #  #data will be fetched by entring pk
+#     serializer_class = AccountSerializer
+#     queryset = Account.objects.all()
+#
+#     def get_queryset(self):
+#         return Account.objects.all()

@@ -15,20 +15,34 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
 # Routers provide an easy way of automatically determining the URL conf.
 from rest_framework import routers
-
+from categories.api.views import CategoryRudView
+from orders.api.views import OrderRudView
+from products.api.views import ProductRudView
 from posts.api.views import PostRudView
+from reviews.api.views import ReviewRudView
 
 router = routers.DefaultRouter()
 
 router.register(r'psychq/posts', PostRudView)
+router.register(r'psychq/categories', CategoryRudView)
+router.register(r'psychq/products', ProductRudView)
+router.register(r'psychq/orders', OrderRudView)
+router.register(r'psychq/reviews', ReviewRudView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/psychq/posts/', include('posts.api.urls')),
-    path('api/account/', include('accounts.api.urls', 'account_api'))
+    url(r'^api/psychq/categories/', include('categories.api.urls')),
+    url(r'^api/psychq/products/', include('products.api.urls')),
+    url(r'^api/psychq/orders/', include('orders.api.urls')),
+    url(r'^api/psychq/reviews/', include('reviews.api.urls')),
+    path('api/account/', include('accounts.api.urls', 'account_api')),
+
 
 ]

@@ -1,3 +1,5 @@
+import uuid
+
 from rest_framework import serializers
 from accounts.models import Account
 
@@ -5,10 +7,12 @@ from accounts.models import Account
 # Converts to JSON + Validation for data passed
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    # password2 have to be added manually
 
     class Meta:
         model = Account
         fields = [
+            'uuid',
             'username',
             'email',
             'password',
@@ -32,5 +36,28 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if password != password2:
             raise serializers.ValidationError({'Confirm Password': 'Passwords must match'})
         account.set_password(password)
+        # account.set_uuid(uuid.uuid4)
         account.save()
         return account
+
+
+#
+# class AccountSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Account
+#         fields = [
+#             'pk',
+#             'uuid',
+#             'username',
+#             'email',
+#             'date_joined',
+#             'last_login',
+#             'profile_pic'
+#         ]
+#         read_only_fields = ['pk', 'uuid', 'date_joined']
+#
+#         # For Field Validation
+#
+#         #  This part is not working properly, come back to it later
+#         def __init__(self):
+#             self.instance = None

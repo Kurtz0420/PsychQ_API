@@ -9,8 +9,7 @@ from rest_framework.reverse import reverse as api_reverse
 # Create your models here.
 
 class Post(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    code = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    id = models.CharField(max_length=100, null=False, blank=False, unique=True, primary_key=True)
     title = models.CharField(max_length=120, unique=True)
     description = models.CharField(max_length=1300, null=True, blank=True)
     category = models.CharField(max_length=120, null=True)
@@ -19,17 +18,17 @@ class Post(models.Model):
     universal_count = models.IntegerField()  # Overall Count of whole posts
     category_count = models.IntegerField()  # count in a category
     sub_post_count = models.IntegerField(null=True, blank=True)  # sub posts count (if any)
-    is_printAvailible = models.BooleanField(default=False)
+    is_printable = models.BooleanField(default=False)
     tags = models.CharField(max_length=1000, null=True, blank=True)
     views = models.IntegerField()
     downloads = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.id + ", " + self.title)
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(Post, self).__init__(*args, **kwargs)
 
         # @property
     # def owner(self):

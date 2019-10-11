@@ -8,9 +8,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'pk',
-            'user',
-            'code',
+            'id',
             'title',
             'description',
             'category',
@@ -19,14 +17,13 @@ class PostSerializer(serializers.ModelSerializer):
             'universal_count',
             'category_count',
             'sub_post_count',
-            'is_printAvailible',
+            'is_printable',
             'tags',
             'views',
             'downloads',
-
             'timestamp',
         ]
-        read_only_fields = ['pk', 'user', 'timestamp']
+        read_only_fields = ['id', 'timestamp']
 
         # For Field Validation
 
@@ -37,7 +34,15 @@ class PostSerializer(serializers.ModelSerializer):
         def validate_title(self, value):
             val_title = Post.objects.filter(title__iexact=value)  # will throw error if the title of two posts is same
             if self.instance:
-                val_title = val_title.exclude(pk=self.instance.pk)
+                val_title = val_title.exclude(id=self.instance.id)
             if val_title.exists():
                 raise serializers.ValidationError("Title Already Exists..must be unique")
+            return value
+
+        def validate_id(self, value):
+            val_title = Post.objects.filter(id__iexact=value)  # will throw error if the title of two posts is same
+            if self.instance:
+                val_title = val_title.exclude(id=self.instance.id)
+            if val_title.exists():
+                raise serializers.ValidationError("Code Already Exists..must be unique")
             return value
