@@ -39,7 +39,7 @@ class PostApiView(
     # It will make sure that logged in user is associated with the post (Auto entry in post)
     def perform_create(self, serializer):
         post_id = str(uuid.uuid4()).replace("-", "")
-        serializer.save(id=post_id)
+        serializer.save()
 
     # Enables us to post on /api/posts
     def post(self, request, *args, **kwargs):

@@ -13,12 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import django
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
 # Routers provide an easy way of automatically determining the URL conf.
+from django.views.generic import TemplateView
 from rest_framework import routers
 from categories.api.views import CategoryRudView
 from orders.api.views import OrderRudView
@@ -34,7 +36,6 @@ router.register(r'psychq/products', ProductRudView)
 router.register(r'psychq/orders', OrderRudView)
 router.register(r'psychq/reviews', ReviewRudView)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/psychq/posts/', include('posts.api.urls')),
@@ -42,7 +43,8 @@ urlpatterns = [
     url(r'^api/psychq/products/', include('products.api.urls')),
     url(r'^api/psychq/orders/', include('orders.api.urls')),
     url(r'^api/psychq/reviews/', include('reviews.api.urls')),
-    path('api/account/', include('accounts.api.urls', 'account_api')),
-
+    path('accounts/', include('users.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),  # For Login Views
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),  # HomePage 127.0.0.1:8000
 
 ]

@@ -20,28 +20,14 @@ python manage.py makemigrations
 python manage.py migrate
 
 + This api contains four apps
-    -posts
-    -categories
-    -merch
-    -shopping
+    -posts = {All the content of psychQ app (Post)}
+    -categories = {Categories of above posts}
+    -products = {All our products will go here}
+    -orders = {Will store all the orders of products}
+    -reviews = {Will store all the reviews of users on products}
+    -accounts = {Will store all the users}
 
-URL's
-======
 
-+ '/admin' - admin panels func : all control
-+ 'api/psychq/posts/ - will list the items in the database as well as ability to post new item
-+ 'api/psychq/posts/{number} - will return the object of the respective id
-+ 'api/psychq/posts/?q={fieldsProvidedIn 'PostApiView.get_query} - searches the title/data inside items
-+ 'api/psychq/categories
-
-Query
-=======
-
-+ Api can be queried by the following fields
-    -id
-    -title
-    -category
-    -universal_count
 
 POSTS REQUESTS
 =========
@@ -86,19 +72,31 @@ CATEGORIES REQUESTS
 + GET - /api/psychq/categories
         will retrieve all the objects of categories in psychQ
 
-+ GET - /api/psychq/categories/{pk of category}
-        will retrieve category of associated pk in psychQ
++ GET - /api/psychq/categories/{id of category}
+        will retrieve category of associated id in psychQ
 
-+ GET - /api/psychq/categories/?q={code or title}
-        will retrieve category of associated code or title in psychQ
++ GET - /api/psychq/categories/?q={id or title}
+        will retrieve category of associated id or title in psychQ
 
 + POST - /api/psychq/categories/
+            -id
+            -title
+            -description
+            -sub_categories {optional}
+            -picTop
+            -picLeft
+            -picRight
+            -count_range_from
+            -count_range_to
+            -tags
+            -total_posts_count
+
         will post object if model is valid
 
-+ PUT - /api/psychq/categories/{id or pk}
-        will replace the object related to that id/pk
++ PUT - /api/psychq/categories/{id}
+        will replace the object related to that id
 
-+ PATCH - /api/psychq/categories/{id/pk}
++ PATCH - /api/psychq/categories/{pk/code}
         can update individual properties of an object
         as well as the whole object related t0 that id
 
@@ -117,12 +115,37 @@ ORDERS REQUESTS
         order_id {trackAnOrderByItsID}
 
 + POST - /api/psychq/orders/
+            -product_id
+            -user_id
+            -country
+            -phone_number_with_code
+            -full_address
+            -state
+            -zip_code
+            -cc_number
+            -cc_expiry
+            -cc_code
+            -order_status {choices = pending,shipped,completed}
+
         will post object if model is valid
 
-+ PUT - /api/psychq/orders/{post id or pk}
-        will replace the object related to that id/pk
++ PUT - /api/psychq/orders/{order_id/pk}
+                -user_id
+                -country
+                -phone_number_with_code
+                -full_address
+                -state
+                -zip_code
 
-+ PATCH - /api/psychq/orders/{pk/order_id}
+        will replace the object related to that order_id/pk
+
++ PATCH - /api/psychq/orders/{pk/order_id}/ SLASH AT THE END
+            should only patch the following fields :
+                -country
+                -phone_number_with_code
+                -full_address
+                -state
+                -zip_code
         can update individual properties of an object
         as well as the whole object related t0 that id
 
@@ -133,16 +156,13 @@ REVIEWS REQUESTS
 + GET - /api/psychq/reviews
         will retrieve all the objects
 
-+ GET - /api/psychq/reviews/{pk}
++ GET - /api/psychq/reviews/{id}
         will retrieve object associated with pk
 
 + GET - /api/psychq/reviews/?q={user_id/product_id}
         will retrieve all instances of
         - user_id {howMuchReviewsHaveUserMadeOnHowManyProducts}
         - product_id {howMuchReviewsAreAssociatedWithASingleProduct}
-
-+ GET - /api/psychq/reviews/?q={clean_id}
-        will retrieve the unique review by its id {clean}
 
 + GET - /api/psychq/reviews/{id}
         will retrieve the unique review by its id
@@ -164,3 +184,53 @@ REVIEWS REQUESTS
             -description
         can update individual properties of an object
         as well as the whole object related t0 that id
+
+PRODUCTS REQUESTS
+===================
+
+
++ GET - /api/psychq/products
+        will retrieve all the objects
+
++ GET - /api/psychq/products/{id}
+        will retrieve object associated with id
+
++ GET - /api/psychq/products/?q={id/product_name}
+        will retrieve all instances of matching related field
+
++ GET - /api/psychq/products/{id}
+        will retrieve the unique product by its id
+
++ POST - /api/psychq/products/
+            -id
+            -name
+            -description
+            -quantity_in_stock
+            -sales
+            -price
+            -shipment_charges
+            -photos {String of url's separated by a comma}
+        will post object if model is valid
+
++ PUT - /api/psychq/{id}/  SLASH AT THE END
+        will replace the object related to that id/pk
+
++ PATCH - /api/psychq/reviews/{id}/  SLASH AT THE END
+        can update individual properties of an object
+        as well as the whole object related t0 that id
+
+ACCOUNTS
+=========
+
++Registering a user
+- POST - /accounts/register
+            -username
+            -email
+            -password
+            -password2
+
+
+    /accounts/password_reset {gives the option of provide email address and send a link to that email}
+    -accounts/signup   {Adds User object}
+    -accounts/login    {Authenticate User's object}
+

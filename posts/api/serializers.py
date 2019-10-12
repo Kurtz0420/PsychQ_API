@@ -23,7 +23,7 @@ class PostSerializer(serializers.ModelSerializer):
             'downloads',
             'timestamp',
         ]
-        read_only_fields = ['id', 'timestamp']
+        read_only_fields = ['timestamp']
 
         # For Field Validation
 
