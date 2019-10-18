@@ -12,7 +12,15 @@ pip install django-filters
 pip install Django
 pip install sqlparse
 pip install djangorestframework
-
+pip install django-allauth
+pip install social-auth-app-django
+pip install PyJWT
+pip install certifi
+pip install chardet
+pip install diffusedxml
+pip install django-credit-cards
+pip install django-phone-field
+pip install uuid
 
 then sync the database
 install adbc by going into database on side panel
