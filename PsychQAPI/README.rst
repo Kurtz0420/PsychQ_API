@@ -230,7 +230,56 @@ ACCOUNTS
             -password2
 
 
-    /accounts/password_reset {gives the option of provide email address and send a link to that email}
+    /accounts/password/reset {gives the option of provide email address and send a link to that email}
     -accounts/signup   {Adds User object}
     -accounts/login    {Authenticate User's object}
+
+
+-accounts/signup/$ [name='account_signup']
+-accounts/login/$ [name='account_login']
+-accounts/logout/$ [name='account_logout']
+-accounts/password/change/$ [name='account_change_password']
+-accounts/password/set/$ [name='account_set_password']
+-accounts/inactive/$ [name='account_inactive']
+-accounts/email/$ [name='account_email']
+-accounts/confirm-email/$ [name='account_email_verification_sent']
+-accounts/confirm-email/(?P<key>[-:\w]+)/$ [name='account_confirm_email']
+-accounts/password/reset/$ [name='account_reset_password']
+-accounts/password/reset/done/$ [name='account_reset_password_done']
+-accounts/password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$ [name='account_reset_password_from_key']
+-accounts/password/reset/key/done/$ [name='account_reset_password_from_key_done']
+-accounts/social/
+-accounts/google/
+
+
+UNSPLASH CATEGORIES REQUESTS
+============================
+
++ GET - /api/psychq/unsplashcategories
+        will retrieve all the objects of categories in psychQ
+
++ GET - /api/psychq/unsplashcategories/{id of category}
+        will retrieve category of associated id in psychQ
+
++ GET - /api/psychq/unsplashcategories/?q={id or title}
+        will retrieve category of associated id or title in psychQ
+
++ POST - /api/psychq/unsplashcategories/
+            -id
+            -title
+            -description
+            -picTop
+            -picLeft
+            -picRight
+            -related_tags
+            -total_posts_count
+
+        will post object if model is valid
+
++ PUT - /api/psychq/unsplashcategories/{id}
+        will replace the object related to that id
+
++ PATCH - /api/psychq/unsplashcategories/{pk/code}
+        can update individual properties of an object
+        as well as the whole object related t0 that id
 

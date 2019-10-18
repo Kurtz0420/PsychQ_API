@@ -27,6 +27,7 @@ from orders.api.views import OrderRudView
 from products.api.views import ProductRudView
 from posts.api.views import PostRudView
 from reviews.api.views import ReviewRudView
+from unsplashcategories.api.views import UnsplashCategoryRudView
 
 router = routers.DefaultRouter()
 
@@ -35,6 +36,7 @@ router.register(r'psychq/categories', CategoryRudView)
 router.register(r'psychq/products', ProductRudView)
 router.register(r'psychq/orders', OrderRudView)
 router.register(r'psychq/reviews', ReviewRudView)
+router.register(r'psychq/unsplashcategories', UnsplashCategoryRudView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,8 +45,11 @@ urlpatterns = [
     url(r'^api/psychq/products/', include('products.api.urls')),
     url(r'^api/psychq/orders/', include('orders.api.urls')),
     url(r'^api/psychq/reviews/', include('reviews.api.urls')),
-    path('accounts/', include('users.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # For Login Views
+    url(r'^api/psychq/unsplashcategories/', include('unsplashcategories.api.urls')),
+    # path('accounts/', include('users.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),  # For Login Views
+    path('accounts/', include('allauth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),  # HomePage 127.0.0.1:8000
+    # url(r'api/v1/', include('social_django.urls', namespace='social')) #Google Auth
 
 ]

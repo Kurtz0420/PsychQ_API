@@ -31,7 +31,7 @@ class PostApiView(
         if query is not None:
             qs = qs.filter(
                 Q(title__icontains=query) | Q(category__icontains=query)
-                | Q(id__icontains=query)
+                | Q(id__icontains=query) | Q(tags__contains=query)
 
             ).distinct()  # title & cotegory for query
         return qs

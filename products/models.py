@@ -3,9 +3,9 @@ from django.db import models
 
 class Product(models.Model):
     id = models.CharField(max_length=100, null=False, blank=False, unique=True, primary_key=True)
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000)
-    quantity_in_stock = models.IntegerField()
+    name = models.CharField(max_length=100, help_text="Name of the product")
+    description = models.CharField(max_length=1000, help_text="Brief description of Product/Design printed on it")
+    quantity_in_stock = models.IntegerField(help_text="Available quantity")
     sales = models.IntegerField()
     price = models.IntegerField()
     shipment_charges = models.IntegerField()

@@ -10,16 +10,16 @@ from rest_framework.reverse import reverse as api_reverse
 
 class Post(models.Model):
     id = models.CharField(max_length=100, null=False, blank=False, unique=True, primary_key=True)
-    title = models.CharField(max_length=120, unique=True)
-    description = models.CharField(max_length=1300, null=True, blank=True)
-    category = models.CharField(max_length=120, null=True)
-    sub_category = models.CharField(max_length=120, null=True, blank=True)
-    storage_link = models.CharField(max_length=1000, null=True)
-    universal_count = models.IntegerField()  # Overall Count of whole posts
-    category_count = models.IntegerField()  # count in a category
-    sub_post_count = models.IntegerField(null=True, blank=True)  # sub posts count (if any)
-    is_printable = models.BooleanField(default=False)
-    tags = models.CharField(max_length=1000, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True, help_text="Name of the Post")
+    description = models.CharField(max_length=1300, null=True, blank=True, help_text="Brief description")
+    category = models.CharField(max_length=120, null=True, help_text="Category, the Post belongs to")
+    sub_category = models.CharField(max_length=120, null=True, blank=True, help_text="If the Post is from a sub category")
+    storage_link = models.CharField(max_length=1000, null=True, help_text="Slug of the image")
+    universal_count = models.IntegerField(help_text="Count of post in Overall posts")  # Overall Count of whole posts
+    category_count = models.IntegerField(help_text="Count of Post in a category")  # count in a category
+    sub_post_count = models.IntegerField(null=True, blank=True, help_text="Count of post in sub category (if any)")  # sub posts count (if any)
+    is_printable = models.BooleanField(default=False, help_text="Can it be printed on t-Shirt")
+    tags = models.CharField(max_length=1000, null=True, blank=True, help_text="Significant words used in Post")
     views = models.IntegerField()
     downloads = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)

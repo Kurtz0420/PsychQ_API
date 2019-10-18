@@ -30,7 +30,8 @@ ALLOWED_HOSTS = ['*']  # '*' means allows all hosts
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',  # For Login Views
+    'django.contrib.auth',
+    'django.contrib.sites',# For Login Views
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -42,9 +43,16 @@ INSTALLED_APPS = [
     'products',
     'orders',
     'reviews',
+    'unsplashcategories',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
     # new# For Sign Up
 
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.login_redirect',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -141,8 +151,35 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+
+)
+
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SESSION_COOKIE_SAMESITE = None
+
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"  # For sending password_rest email to send_emails directory
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 AUTH_USER_MODEL = 'users.CustomUser'  # new
+
+
+LOGIN_URL = ''

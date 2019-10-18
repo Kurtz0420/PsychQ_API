@@ -8,10 +8,10 @@ from products.models import Product
 
 class Review(models.Model):
     id = models.UUIDField('UUID', primary_key=True, default=uuid.uuid4, editable=False)
-    product_id = models.CharField(max_length=60, null=False, blank=False)
-    user_id = models.CharField(max_length=50, null=False, blank=False)
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000)
+    product_id = models.CharField(max_length=60, null=False, blank=False, help_text="Product id on which review is made")
+    user_id = models.CharField(max_length=50, null=False, blank=False, help_text="id of the user who made the review")
+    title = models.CharField(max_length=100, help_text="Title of the review")
+    description = models.CharField(max_length=1000, help_text="Body of the review")
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

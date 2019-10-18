@@ -16,8 +16,8 @@ ORDER_STATUS = (
 
 class Order(models.Model):
     order_id = models.UUIDField('UUID', primary_key=True, default=uuid.uuid4, editable=False)
-    product_id = models.CharField(max_length=50, null=False, blank=False)
-    user_id = models.CharField(max_length=50, null=False, blank=False)
+    product_id = models.CharField(max_length=50, null=False, blank=False, help_text="Product which user ordered")
+    user_id = models.CharField(max_length=50, null=False, blank=False, help_text="Id of the user who placed the order")
     country = models.CharField(max_length=30)
     # phone_number_with_code = PhoneField(blank=True, help_text='Contact phone number')
     phone_number_with_code = models.CharField(max_length=20)

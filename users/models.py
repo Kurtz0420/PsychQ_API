@@ -14,3 +14,6 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def clean_user_id(self):
+        return self.user_id.__str__().replace('-', '')  # will clean up the uuid of dashes -
