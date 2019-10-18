@@ -9,7 +9,7 @@ create a virtual environment
 then install the following in interpreter :
 pip install Markdown
 pip install django-filters
-pip install Django
+pip install Django==2.2.6
 pip install sqlparse
 pip install djangorestframework
 pip install django-allauth
