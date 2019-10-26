@@ -1,9 +1,10 @@
 # generic views
 import uuid
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, filters
 from rest_framework.views import APIView
 
 from posts.models import Post
@@ -19,9 +20,16 @@ class PostApiView(
     mixins.DestroyModelMixin,
     mixins.ListModelMixin):
     lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change
+
     # lookup_field  #data will be fetched by entring pk
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['custom_ordering']  # With this we can order the posts object by the specified field by adding
+    # ordering keyword e.g /api/psychq/posts/?ordering=custom_ordering&page=20
+
     serializer_class = PostSerializer
     queryset = Post.objects.all()
+    # posts_list = Post.objects.get_queryset().order_by('custom_ordering')
+    # paginator = Paginator(posts_list, 20)
 
     def get_queryset(self):
         # following will enable us to search through all posts with any parameter from model '?q={
@@ -32,6 +40,7 @@ class PostApiView(
             qs = qs.filter(
                 Q(title__icontains=query) | Q(category__icontains=query)
                 | Q(id__icontains=query) | Q(tags__contains=query)
+                | Q(universal_count_icontains=query)
 
             ).distinct()  # title & cotegory for query
         return qs
@@ -93,10 +102,10 @@ class PostRudView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
     #  #data will be fetched by entring pk
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('custom_ordering')
 
     def get_queryset(self):
-        return Post.objects.all()
+        return Post.objects.order_by('custom_ordering')
 
 #
 # def get_object(self):
