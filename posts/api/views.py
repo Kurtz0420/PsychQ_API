@@ -28,6 +28,7 @@ class PostApiView(
 
     serializer_class = PostSerializer
     queryset = Post.objects.all()
+
     # posts_list = Post.objects.get_queryset().order_by('custom_ordering')
     # paginator = Paginator(posts_list, 20)
 
@@ -36,6 +37,17 @@ class PostApiView(
         # value_of_field_added_below}'
         qs = Post.objects.all()
         query = self.request.GET.get("q")
+        # if "#" not in query:
+        #     print("if statement executed : " + query)
+        #     qs = qs.filter(
+        #         Q(title__iexact=query) | Q(id__iexact=query) | Q(category__iexact=query)
+        #     ).distinct()
+        # if "#" in query:
+        #     query = query.replace(query[:1], '')
+        #     print("else statement executed : " + query)
+        #     qs = qs.filter(
+        #         Q(tags__contains=query)
+        #     ).distinct()
         if query is not None:
             qs = qs.filter(
                 Q(title__icontains=query) | Q(category__icontains=query)

@@ -14,7 +14,8 @@ class Post(models.Model):
     description = models.CharField(max_length=1300, null=True, blank=True, help_text="Brief description")
     category = models.CharField(max_length=120, null=True, help_text="Category, the Post belongs to")
     sub_category = models.CharField(max_length=120, null=True, blank=True, help_text="If the Post is from a sub category")
-    storage_link = models.CharField(max_length=1000, null=True, help_text="Slug of the image")
+    thumbnail = models.CharField(max_length=1000, null=True, help_text="Thumbnail Slug of the image")
+    full_res_image = models.CharField(max_length=1000, null=True, help_text="Slug of the image")
     universal_count = models.IntegerField(help_text="Count of post in Overall posts")  # Overall Count of whole posts
     category_count = models.IntegerField(help_text="Count of Post in a category")  # count in a category
     sub_post_count = models.IntegerField(null=True, blank=True, help_text="Count of post in sub category (if any)")  # sub posts count (if any)

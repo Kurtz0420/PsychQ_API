@@ -17,7 +17,7 @@ pip install social-auth-app-django
 pip install PyJWT
 pip install certifi
 pip install chardet
-pip install diffusedxml
+pip install defusedxml
 pip install django-credit-cards
 pip install django-phone-field
 pip install uuid
