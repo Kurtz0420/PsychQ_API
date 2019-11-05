@@ -40,10 +40,20 @@ python manage.py migrate
 POSTS REQUESTS
 =========
 
++ GET - /api/psychq/posts/?ordering=custom_ordering
+        will retrieve all the objects of posts organized by custom_ordering field (ascending)
+
++ GET - /api/psychq/posts/?ordering=-custom_ordering
+        will retrieve all the objects of posts organized by custom_ordering field (descending)
+
 + GET - /api/psychq/posts
         will retrieve all the objects of posts
 
-+ GET - /api/psychq/posts/?q={title/category/id}
++ GET - /api/psychq/posts/?q=_quotes
+        - will retrieve objects posts with matching tags because of '_' sign
+        - without '_' sign it will search categories, title, and id's
+
++ GET - /api/psychq/posts/?q={title/category/id/universal_count}
         will retrieve posts associated with title/category/id
 
 + GET - /api/psychq/posts/{id}

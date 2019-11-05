@@ -37,24 +37,19 @@ class PostApiView(
         # value_of_field_added_below}'
         qs = Post.objects.all()
         query = self.request.GET.get("q")
-        # if "#" not in query:
-        #     print("if statement executed : " + query)
-        #     qs = qs.filter(
-        #         Q(title__iexact=query) | Q(id__iexact=query) | Q(category__iexact=query)
-        #     ).distinct()
-        # if "#" in query:
-        #     query = query.replace(query[:1], '')
-        #     print("else statement executed : " + query)
-        #     qs = qs.filter(
-        #         Q(tags__contains=query)
-        #     ).distinct()
         if query is not None:
-            qs = qs.filter(
-                Q(title__icontains=query) | Q(category__icontains=query)
-                | Q(id__icontains=query) | Q(tags__contains=query)
-                | Q(universal_count_icontains=query)
+            if '_' in query:  # If query contains '_' it will search tags otherwise categories,title,id
+                print("if Statement")
+                query = query.replace(query[:1], '')
+                qs = qs.filter(Q(tags__contains=query)).distinct()
+            else:
+                print("Else Statement")
+                qs = qs.filter(
+                    Q(title__icontains=query) | Q(category__icontains=query)
+                    | Q(id__icontains=query)
+                    | Q(universal_count__icontains=query)
 
-            ).distinct()  # title & cotegory for query
+                ).distinct()  # title & cotegory for query
         return qs
 
     # It will make sure that logged in user is associated with the post (Auto entry in post)
