@@ -60,19 +60,21 @@ POSTS REQUESTS
         will retrieve posts associated with that id
 
 + POST - /api/psychq/posts/
+            -id
+            -custom_ordering
             -title
+            -description
             -category
             -sub_category
-            -storage_link
+            -thumbnail
+            -full_res_image
             -universal_count
             -category_count
             -sub_post_count
-            -description
             -is_printable
             -tags
             -views
             -downloads
-            -id {generated automatically with POST}
             -timestamp {generated Auto}
         will post object if model is valid
 
@@ -298,6 +300,90 @@ UNSPLASH CATEGORIES REQUESTS
         will replace the object related to that id
 
 + PATCH - /api/psychq/unsplashcategories/{pk/code}
+        can update individual properties of an object
+        as well as the whole object related t0 that id
+
+CRASH COURSES REQUESTS
+============================
+-End Point for all the crash courses available (Will Just Display Courses Available)
+-Content of the courses can be retrieved from article end point
+
++ GET - /api/psychq/crashcourses
+        will retrieve all the Crash Courses Available in psychQ
+
++ GET - /api/psychq/crashcourses/{id of Crash Course}
+        will retrieve Crash Course of associated id in psychQ
+
++ GET - /api/psychq/crashcourses/?q={id or title}
+        will retrieve Crash Course of associated id or title in psychQ
+
++ POST - /api/psychq/unsplashcategories/
+            -id
+            -title
+            -description
+            -picTop
+            -picLeft
+            -picRight
+            -count_range_from
+            -count_range_to
+            -first_article_url
+            -last_article_url
+            -tags
+            -total_articles_count
+
+        will post object if model is valid
+
++ PUT - /api/psychq/crashcourses/{id}
+        will replace the object related to that id
+
++ PATCH - /api/psychq/crashcourses/{pk/code}
+        can update individual properties of an object
+        as well as the whole object related t0 that id
+
+
+ARTICLES REQUESTS
+=========
+
++ GET - /api/psychq/articles/?ordering=custom_ordering
+        will retrieve all the objects of articles organized by custom_ordering field (ascending)
+
++ GET - /api/psychq/articles/?ordering=-custom_ordering
+        will retrieve all the objects of articles organized by custom_ordering field (descending)
+
++ GET - /api/psychq/articles
+        will retrieve all the objects of articles
+
++ GET - /api/psychq/articles/?q=_quotes
+        - will retrieve objects of articles with matching tags because of '_' sign
+        - without '_' sign it will search parent_course, title, and id's
+
++ GET - /api/psychq/articles/?q={title/parent_course/id/universal_count}
+        will retrieve posts associated with title/parent_course/id
+
++ GET - /api/psychq/articles/{id}
+        will retrieve article associated with that id
+
++ POST - /api/psychq/articles/
+            -id
+            -custom_ordering
+            -title
+            -description
+            -article_content
+            -parent_course
+            -thumbnail
+            -full_res_image
+            -universal_count
+            -course_count
+            -tags
+            -reads
+            -downloads
+            -timestamp {generated Auto}
+        will post object if model is valid
+
++ PUT - /api/psychq/articles/{id {article_id}}
+        will replace the object related to that id/pk
+
++ PATCH - /api/psychq/articles/{id}
         can update individual properties of an object
         as well as the whole object related t0 that id
 

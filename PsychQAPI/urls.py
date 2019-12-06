@@ -22,7 +22,10 @@ from django.urls import path, include
 # Routers provide an easy way of automatically determining the URL conf.
 from django.views.generic import TemplateView
 from rest_framework import routers
+
+from articlesCC.api.views import ArticleRudView
 from categories.api.views import CategoryRudView
+from crashcourses.api.views import CrashCourseRudView
 from orders.api.views import OrderRudView
 from products.api.views import ProductRudView
 from posts.api.views import PostRudView
@@ -37,6 +40,8 @@ router.register(r'psychq/products', ProductRudView)
 router.register(r'psychq/orders', OrderRudView)
 router.register(r'psychq/reviews', ReviewRudView)
 router.register(r'psychq/unsplashcategories', UnsplashCategoryRudView)
+router.register(r'psychq/crashcourses', CrashCourseRudView)
+router.register(r'psychq/articles', ArticleRudView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -46,6 +51,8 @@ urlpatterns = [
     url(r'^api/psychq/orders/', include('orders.api.urls')),
     url(r'^api/psychq/reviews/', include('reviews.api.urls')),
     url(r'^api/psychq/unsplashcategories/', include('unsplashcategories.api.urls')),
+    url(r'^api/psychq/crashcourses/', include('crashcourses.api.urls')),
+    url(r'^api/psychq/articles/', include('articlesCC.api.urls')),
     # path('accounts/', include('users.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),  # For Login Views
     path('accounts/', include('allauth.urls')),

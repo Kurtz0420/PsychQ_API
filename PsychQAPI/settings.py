@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
+    'articlesCC',
+    'crashcourses'
     # new# For Sign Up
 
 ]

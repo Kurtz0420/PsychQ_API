@@ -1,78 +1,65 @@
 # generic views
 import uuid
 
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
-from rest_framework import generics, mixins, filters
+from rest_framework import generics, mixins
 from rest_framework.views import APIView
 
+from categories.api.serializers import CategorySerializer
+from categories.models import Category
+from crashcourses.api.serializers import CrashCourseSerializer
+from crashcourses.models import CrashCourse
 from posts.models import Post
 
 from posts.api.serializers import PostSerializer
 
 
 # ListApiView will list the posts #CreateModelMixin Will provide create
-class PostApiView(
+class CrashCourseApiView(
     generics.ListAPIView,
     mixins.CreateModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     mixins.ListModelMixin):
-    lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change
-
-    # lookup_field  #data will be fetched by entring pk
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['custom_ordering']  # With this we can order the posts object by the specified field by adding
-    # ordering keyword e.g /api/psychq/posts/?ordering=custom_ordering&page=20
-
-    serializer_class = PostSerializer
-    queryset = Post.objects.all()
-
-    # posts_list = Post.objects.get_queryset().order_by('custom_ordering')
-    # paginator = Paginator(posts_list, 20)
+    lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field  #data will be fetched by entring pk
+    serializer_class = CrashCourseSerializer
+    queryset = CrashCourse.objects.all()
 
     def get_queryset(self):
         # following will enable us to search through all posts with any parameter from model '?q={
         # value_of_field_added_below}'
-        qs = Post.objects.all()
+        qs = CrashCourse.objects.all()
         query = self.request.GET.get("q")
         if query is not None:
-            if '_' in query:  # If query contains '_' it will search tags otherwise categories,title,id
-                print("if Statement")
-                query = query.replace(query[:1], '')
-                qs = qs.filter(Q(tags__contains=query)).distinct()
-            else:
-                print("Else Statement")
-                qs = qs.filter(
-                    Q(title__icontains=query) | Q(category__iexact=query)
-                    | Q(id__icontains=query)
-                    | Q(universal_count__icontains=query)
+            qs = qs.filter(
 
-                ).distinct()  # title & cotegory for query
+                Q(id__icontains=query) | Q(title__icontains=query)
+            ).distinct()  # title & cotegory for query
         return qs
 
     # It will make sure that logged in user is associated with the post (Auto entry in post)
     def perform_create(self, serializer):
-        post_id = str(uuid.uuid4()).replace("-", "")
+        # code_ = str(uuid.uuid4()).replace("-", "")
         serializer.save()
 
     # Enables us to post on /api/posts
     def post(self, request, *args, **kwargs):
-        post_id_ = self.kwargs.get('id')
         return self.create(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
-        id_ = self.kwargs.get('id')
+        pk = self.kwargs.get('id')
 
-        object_to_update = Post.objects.filter(id=id_).first()
+        print("Fetched pk", pk)
+
+        object_to_update = CrashCourse.objects.filter(id=pk).first()
 
         print("object_to_update", object_to_update)
         # try:
         #     object_to_update = Post.objects.get(pk=pk)
         # except Post.DoesNotExist:
         #     object_to_update= None
-        serializer = PostSerializer(object_to_update, data=request.data, partial=True)
+        serializer = CrashCourseSerializer(object_to_update, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(code=201, data=serializer.data, safe=False)
@@ -83,8 +70,8 @@ class PostApiView(
     #     return self.update(request, *args, **kwargs)
 
     def get_object(self):
-        post_id = self.kwargs.get("id")
-        return Post.objects.get(id=post_id)
+        id_ = self.kwargs.get("id")
+        return CrashCourse.objects.get(id=id_)
 
     # def perform_update(self, serializer):
     #     instance = serializer.save()
@@ -105,16 +92,16 @@ class PostApiView(
     #     return JsonResponse(code=400, data="Wrong Parameters")
 
 
-class PostRudView(generics.RetrieveUpdateDestroyAPIView):
+class CrashCourseRudView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
     #  #data will be fetched by entring pk
-    serializer_class = PostSerializer
-    queryset = Post.objects.all().order_by('custom_ordering')
+    serializer_class = CrashCourseSerializer
+    queryset = CrashCourse.objects.all()
 
     def get_queryset(self):
-        return Post.objects.order_by('custom_ordering')
+        return CrashCourse.objects.all()
 
-#
-# def get_object(self):
-#     pk=self.kwargs.get("pk")
-#     return Post.objects.get(pk=pk)
+    #
+    # def get_object(self):
+    #     pk=self.kwargs.get("pk")
+    #     return Post.objects.get(pk=pk)
