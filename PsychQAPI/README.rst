@@ -40,6 +40,8 @@ python manage.py migrate
 POSTS REQUESTS
 =========
 
+Endpoint for fetching posts
+
 + GET - /api/psychq/posts/?ordering=custom_ordering
         will retrieve all the objects of posts organized by custom_ordering field (ascending)
 
@@ -75,6 +77,7 @@ POSTS REQUESTS
             -tags
             -views
             -downloads
+            -shares
             -timestamp {generated Auto}
         will post object if model is valid
 
@@ -370,6 +373,8 @@ ARTICLES REQUESTS
             -description
             -article_content
             -parent_course
+            -source
+            -est_time
             -thumbnail
             -full_res_image
             -universal_count
@@ -377,6 +382,7 @@ ARTICLES REQUESTS
             -tags
             -reads
             -downloads
+            -shares
             -timestamp {generated Auto}
         will post object if model is valid
 

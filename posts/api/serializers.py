@@ -23,6 +23,7 @@ class PostSerializer(serializers.ModelSerializer):
             'tags',
             'views',
             'downloads',
+            'shares',
             'timestamp',
         ]
         read_only_fields = ['timestamp']

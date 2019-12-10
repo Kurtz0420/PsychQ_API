@@ -15,6 +15,8 @@ class ArticleSerializer(serializers.ModelSerializer):
             'description',
             'article_content',
             'parent_course',
+            'source',
+            'est_time',
             'thumbnail',
             'full_res_image',
             'universal_count',
@@ -22,6 +24,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             'tags',
             'reads',
             'downloads',
+            'shares',
             'timestamp',
         ]
         read_only_fields = ['timestamp']

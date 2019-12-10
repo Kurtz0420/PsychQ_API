@@ -23,6 +23,7 @@ class Post(models.Model):
     tags = models.CharField(max_length=1000, null=True, blank=True, help_text="Significant words used in Post")
     views = models.IntegerField()
     downloads = models.IntegerField()
+    shares = models.IntegerField(default=0)
     custom_ordering = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
 
