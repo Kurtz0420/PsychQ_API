@@ -8,8 +8,6 @@ from rest_framework.views import APIView
 
 from categories.api.serializers import CategorySerializer
 from categories.models import Category
-from orders.api.serializers import OrderSerializer
-from orders.models import Order
 from products.api.serializers import ProductSerializer
 from products.models import Product
 from posts.models import Post

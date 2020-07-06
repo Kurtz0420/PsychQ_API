@@ -45,9 +45,10 @@ class PostApiView(
             else:
                 print("Else Statement")
                 qs = qs.filter(
-                    Q(title__icontains=query) | Q(category__iexact=query)
-                    | Q(id__icontains=query)
+                    Q(title__iexact=query) | Q(category__iexact=query)
+                    | Q(id__iexact=query)
                     | Q(universal_count__icontains=query)
+	            | Q(is_trial_content__iexact=query)
 
                 ).distinct()  # title & cotegory for query
         return qs

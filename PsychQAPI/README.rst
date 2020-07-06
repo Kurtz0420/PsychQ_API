@@ -7,20 +7,20 @@ setup interpreter
 create a virtual environment
 
 then install the following in interpreter :
-pip install Markdown
-pip install django-filters
-pip install Django==2.2.6
-pip install sqlparse
-pip install djangorestframework
-pip install django-allauth
-pip install social-auth-app-django
-pip install PyJWT
-pip install certifi
-pip install chardet
-pip install defusedxml
-pip install django-credit-cards
-pip install django-phone-field
-pip install uuid
+pip3 install Markdown
+pip3 install django-filters
+pip3 install Django==2.2.6
+pip3 install sqlparse
+pip3 install djangorestframework
+pip3 install django-allauth
+pip3 install social-auth-app-django
+pip3 install PyJWT
+pip3 install certifi
+pip3 install chardet
+pip3 install defusedxml
+pip3 install django-credit-cards
+pip3 install django-phone-field
+pip3 install uuid
 
 then sync the database
 install adbc by going into database on side panel

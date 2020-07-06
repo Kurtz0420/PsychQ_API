@@ -25,7 +25,7 @@ class ArticleApiView(
 
     # lookup_field  #data will be fetched by entring pk
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['custom_ordering']  # With this we can order the posts object by the specified field by adding
+    ordering_fields = ('custom_ordering','course_count','universal_count')  # With this we can order the posts object by the specified field by adding
     # ordering keyword e.g /api/psychq/posts/?ordering=custom_ordering&page=20
 
     serializer_class = ArticleSerializer
@@ -111,10 +111,10 @@ class ArticleRudView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'  # also default by django # url (?P<pk>\d+)   #if we change pk we have to change lookup_field
     #  #data will be fetched by entring pk
     serializer_class = ArticleSerializer
-    queryset = Article.objects.all().order_by('custom_ordering')
+    queryset = Article.objects.all().order_by('universal_count')
 
     def get_queryset(self):
-        return Article.objects.order_by('custom_ordering')
+        return Article.objects.order_by('universal_count')
 
 #
 # def get_object(self):

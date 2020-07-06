@@ -19,10 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['PSYCHAPIKEY']
+SECRET_KEY = ''
 # SECRET_KEY = os.environ.get('psychq_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']  # '*' means allows all hosts
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'posts',
     'categories',
     'products',
-    'orders',
+    'subscriptions',
     'reviews',
     'unsplashcategories',
     'allauth',
@@ -49,7 +49,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'articlesCC',
-    'crashcourses'
+    'crashcourses',
+    'announcements',
+    'dinglebox',
+    'jokes',
+    'userjokes'
     # new# For Sign Up
 
 ]

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from categories.models import Category
-from orders.models import Order
+
 from products.models import Product
 from posts.models import Post
 

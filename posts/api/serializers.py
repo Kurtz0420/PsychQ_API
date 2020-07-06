@@ -16,6 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
             'sub_category',
             'thumbnail',
             'full_res_image',
+            'is_trial_content',
             'universal_count',
             'category_count',
             'sub_post_count',

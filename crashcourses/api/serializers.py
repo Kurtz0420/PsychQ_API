@@ -13,6 +13,10 @@ class CrashCourseSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
+	    'source',
+	    'author_name',
+	    'author_info',
+	    'author_image',
             'pic_top',
             'pic_left',
             'pic_right',
@@ -21,6 +25,7 @@ class CrashCourseSerializer(serializers.ModelSerializer):
             'first_article_url',
             'last_article_url',
             'tags',
+	    'is_finished',
             'total_articles_count'
         ]
         read_only_fields = ['timestamp']

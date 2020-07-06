@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import IntegerField
 from django.urls import reverse
+from django.utils import timezone
 
 from rest_framework.reverse import reverse as api_reverse
 
@@ -16,6 +17,7 @@ class Post(models.Model):
     sub_category = models.CharField(max_length=120, null=True, blank=True, help_text="If the Post is from a sub category")
     thumbnail = models.CharField(max_length=1000, null=True, help_text="Thumbnail Slug of the image")
     full_res_image = models.CharField(max_length=1000, null=True, help_text="Slug of the image")
+    is_trial_content = models.CharField(max_length=50, null=True, help_text="If Post belongs in onTrial Content, Just Set NotSubscribedContent, otherwise SubscribedContent", default="SubscribedContent")
     universal_count = models.IntegerField(help_text="Count of post in Overall posts")  # Overall Count of whole posts
     category_count = models.IntegerField(help_text="Count of Post in a category")  # count in a category
     sub_post_count = models.IntegerField(null=True, blank=True, help_text="Count of post in sub category (if any)")  # sub posts count (if any)
@@ -25,7 +27,7 @@ class Post(models.Model):
     downloads = models.IntegerField()
     shares = models.IntegerField(default=0)
     custom_ordering = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.id + ", " + self.title)

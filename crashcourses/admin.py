@@ -8,7 +8,7 @@ from crashcourses.models import CrashCourse
 
 
 class CrashCourseAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'total_articles_count', 'description']
+    list_display = ['id', 'title', 'source', 'author_name', 'is_finished', 'total_articles_count', 'description']
     search_fields = ['id', 'title']
     readonly_fields = []
 
